@@ -40,9 +40,22 @@ function initForm() {
             }
         };
         sw[optType]();
+
+
     })
 
 
+    var video = $('video')[0];
+    $('#strokes').hover(
+        function() {
+            video.playbackRate  =0.5;
+            video.currentTime=0;
+            
+         },
+        function() {
+            video.playbackRate  =1;
+            
+    })
     $('#next').click(function () {
         save();
         next();
