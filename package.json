@@ -1,0 +1,19 @@
+{
+  "name": "SissyAnalTrainer",
+  "main": "/content/index.html",
+  "version": "0.0.1",
+  "private": true,
+  "window": {
+    "title": "Hello Native apps",
+    "toolbar": false,
+    "frame": true,
+    "width": 850,
+    "height": 500,
+    "position": "center",
+    "resizable": true
+  },
+  "dependencies": {
+    "keypress": "^0.2.1",
+    "lodash": "^3.10.0"
+  }
+}
