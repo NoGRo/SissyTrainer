@@ -13,65 +13,67 @@
 
 <body>
     <form>
+
         <div class="row">
-            <div class="col-lg-6">
+            <div class="col-lg-5">
                 <img src="" alt="">
             </div>
-        </div>
-        <div class="row">
             <div class="col-lg-6">
-                <div class="col-lg-12">
-                    <label class="radio-inline"><input type="radio" name="action" value="Fucking">Fucking</label>
-                    <label class="radio-inline"><input type="radio" name="action" value="Insert">Insert</label>
-                    <label class="radio-inline"><input type="radio" name="action" value="Pullout">Pullout</label>
-                    <label class="radio-inline"><input type="radio" name="action" value="Cum">Cum</label>
-                </div>
-                <div class="col-lg-6">
-                    <div class="form-group">
-                        <label for="position">Position:</label>
-                        <select multiple class="form-control" id="position" style="height: 148px" />
-                        <option>onBack</option>
-                        <option>onSide</option>
-                        <option>onSideLiftLeg</option>
-                        <option>onFour</option>
-                        <option>onFourLiftLeg</option>
-                        <option>onFourStand</option>
-                        <option>backStanding</option>
-                        <option>sittingOnTop</option>
-                        </select>
-                    </div>
-                    <div class="checkbox">
-                        <label><input id="hard" type="checkbox" value="">Hard</label>
-                    </div>
-                    <div class="checkbox">
-                        <label><input id="prostate" type="checkbox" value="">Prostate</label>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <label class="radio-inline"><input type="radio" name="action" value="Fucking">Fucking</label>
+                        <label class="radio-inline"><input type="radio" name="action" value="Insert">Insert</label>
+                        <label class="radio-inline"><input type="radio" name="action" value="Pullout">Pullout</label>
+                        <label class="radio-inline"><input type="radio" name="action" value="Cum">Cum</label>
                     </div>
                 </div>
-                <div class="col-lg-6">
-
-                    <div class="form-group">
-                        <label for="Deep">Deep:</label>
-                        <select multiple class="form-control" id="deep">
-                            <option value="1">Tip</option>
-                            <option value="2">Medium</option>
-                            <option value="3">Deep</option>
-                            <option value="4">Really Deep</option>
-                        </select>
+                <div id="panelFucking" class="row">
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label for="position">Position:</label>
+                            <select multiple class="form-control" id="position" style="height: 148px" >
+                                <option>onBack</option>
+                                <option>onSide</option>
+                                <option>onSideLiftLeg</option>
+                                <option>onFour</option>
+                                <option>onFourLiftLeg</option>
+                                <option>onFourStand</option>
+                                <option>backStanding</option>
+                                <option>sittingOnTop</option>
+                            </select>
+                        </div>
+                        <div class="checkbox">
+                            <label><input id="hard" type="checkbox" value="">Hard</label>
+                        </div>
+                        <div class="checkbox">
+                            <label><input id="prostate" type="checkbox" value="">Prostate</label>
+                        </div>
                     </div>
+                    <div class="col-lg-6">
 
-                    <div class="form-group">
-                        <label for="strokes">Strokes:</label>
-                        <select multiple style="height: 110px" class="form-control" id="strokes">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4 </option>
-                    <option value="4">5</option>
-                    <option value="4">*</option>
-                </select>
+                        <div class="form-group">
+                            <label for="Deep">Deep:</label>
+                            <select multiple class="form-control" id="deep">
+                                <option value="1">Tip</option>
+                                <option value="2">Medium</option>
+                                <option value="3">Deep</option>
+                                <option value="4">Really Deep</option>
+                            </select>
+                        </div>
+
+                        <div id="panelStrokes" class="form-group">
+                            <label for="strokes">Strokes:</label>
+                            <select multiple style="height: 110px" class="form-control" id="strokes">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4 </option>
+                                <option value="4">5</option>
+                                <option value="4">*</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
-
                 <div class="col-lg-6">
                     <div class="form-group">
                         <label for="prepare">Prepare:</label>
@@ -87,17 +89,17 @@
                     </div>
                 </div>
                 <div class="row">
-                        <div class="col-lg-1">
-                            <button type="button" id="discard" class="btn btn-danger">Discard</button>
-                        </div>
-                        <div class="col-lg-1 col-lg-offset-10">
-                            <button type="button" id="next" class="btn btn-success">Next</button>
-                        </div>
+                    <div class="col-lg-1">
+                        <button type="button" id="discard" class="btn btn-danger">Discard</button>
                     </div>
+                    <div class="col-lg-1 col-lg-offset-10">
+                        <button type="button" id="next" class="btn btn-success">Next</button>
+                    </div>
+                </div>
             </div>
 
         </div>
-        
+
     </form>
 </body>
 
