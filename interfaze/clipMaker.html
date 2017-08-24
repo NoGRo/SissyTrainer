@@ -15,13 +15,18 @@
     <form>
 
         <div class="row">
-            <div class="col-lg-5">
+            <div class="col-sm-5">
                 <img src="" alt="">
                 <video src="c:\temp\perrito.mp4" autoplay loop style="width: -webkit-fill-available"></video>
             </div>
-            <div class="col-lg-6">
+            <div class="col-sm-6">
                 <div class="row">
-                    <div class="col-lg-12">
+                    <div class="col-sm-12">
+                        <input id="folder" type="file" webkitdirectory />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
                         <label class="radio-inline"><input type="radio" name="action" value="Fucking">Fucking</label>
                         <label class="radio-inline"><input type="radio" name="action" value="Insert">Insert</label>
                         <label class="radio-inline"><input type="radio" name="action" value="Pullout">Pullout</label>
@@ -29,7 +34,7 @@
                     </div>
                 </div>
                 <div id="panelFucking" class="row">
-                    <div class="col-lg-6">
+                    <div class="col-sm-6">
                         <div class="form-group">
                             <label for="position">Position:</label>
                             <select multiple class="form-control" id="position" style="height: 150px" >
@@ -50,7 +55,7 @@
                             <label><input id="prostate" type="checkbox" value="">Prostate</label>
                         </div>
                     </div>
-                    <div class="col-lg-6">
+                    <div class="col-sm-6">
 
                         <div class="form-group">
                             <label for="Deep">Deep:</label>
@@ -75,14 +80,14 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-6">
+                <div class="col-sm-6">
                     <div class="form-group">
                         <label for="prepare">Prepare:</label>
                         <textarea class="form-control" rows="2" id="prepare"></textarea>
                     </div>
                 </div>
 
-                <div class="col-lg-6">
+                <div class="col-sm-6">
 
                     <div class="form-group">
                         <label for="description">Description:</label>
@@ -90,10 +95,10 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-1">
+                    <div class="col-sm-1">
                         <button type="button" id="discard" class="btn btn-danger">Discard</button>
                     </div>
-                    <div class="col-lg-1 col-lg-offset-10">
+                    <div class="col-sm-1 col-sm-offset-10">
                         <button type="button" id="next" class="btn btn-success">Next</button>
                     </div>
                 </div>

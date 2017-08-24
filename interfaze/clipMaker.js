@@ -43,7 +43,9 @@ function initForm() {
 
 
     })
-
+    $('#folder').on('change',function () {
+        console.log(this.value)
+    })
 
     var video = $('video')[0];
     $('#strokes').hover(
