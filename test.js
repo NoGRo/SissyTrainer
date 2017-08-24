@@ -1,6 +1,11 @@
 
-var ffmpeg = require('fluent-ffmpeg');
+var ffmpeg = require('fluent-ffmpeg')
+var clips = require("./lib/clips")
 
+clips.parseFolder("C:/Temp/ParseGif")
+//clips.convertPending();
+
+/*
 var proc = new ffmpeg({ source: 'c:/temp/perrito.gif' })
   .inputFormat('gif')
   .outputOptions([
@@ -9,4 +14,4 @@ var proc = new ffmpeg({ source: 'c:/temp/perrito.gif' })
           '-vf scale=trunc(iw/2)*2:trunc(ih/2)*2'
   ])  
   .toFormat('mp4')    
-  .saveToFile('c:/temp/perrito.mp4');
+  .saveToFile('c:/temp/perrito.mp4');*/
