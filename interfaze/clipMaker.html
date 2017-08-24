@@ -13,7 +13,7 @@
 
 <body>
     <form>
-
+        <input id="_id" type="hidden" value="">
         <div class="row">
             <div class="col-sm-5">
                 <img src="" alt="">
@@ -37,7 +37,7 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="position">Position:</label>
-                            <select multiple class="form-control" id="position" style="height: 167px" >
+                            <select multiple class="form-control" id="position" name="position" style="height: 167px" >
                                 <option value="onBack">Back</option>
                                 <option value="onSide">Side</option>
                                 <option value="onSideLiftLeg">Side Lift Leg</option>
@@ -50,33 +50,33 @@
                             </select>
                         </div>
                         <div class="checkbox">
-                            <label><input id="hard" type="checkbox" value="">Hard</label>
+                            <label><input id="hard" name="hard" type="checkbox">Hard</label>
                         </div>
                         <div class="checkbox">
-                            <label><input id="prostate" type="checkbox" value="">Prostate</label>
+                            <label><input id="prostate" name="prostate" type="checkbox">Prostate</label>
                         </div>
                     </div>
                     <div class="col-sm-6">
 
                         <div class="form-group">
                             <label for="Deep">Deep:</label>
-                            <select multiple class="form-control" id="deep">
-                                <option value="1">Tip</option>
-                                <option value="2">Medium</option>
-                                <option value="3">Deep</option>
-                                <option value="4">Really Deep</option>
+                            <select multiple class="form-control" name="deep" id="deep">
+                                <option value="Tip">Tip</option>
+                                <option value="Medium">Medium</option>
+                                <option value="Deep">Deep</option>
+                                <option value="Really Deep">Really Deep</option>
                             </select>
                         </div>
 
                         <div id="panelStrokes" class="form-group">
                             <label for="strokes">Strokes:</label>
-                            <select multiple style="height: 120px" class="form-control" id="strokes">
+                            <select multiple style="height: 120px" class="form-control" id="strokes" name="strokes">
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
                                 <option value="4">4 </option>
-                                <option value="4">5</option>
-                                <option value="4">*</option>
+                                <option value="5">5</option>
+                                <option value="0">*</option>
                             </select>
                         </div>
                     </div>
@@ -84,7 +84,7 @@
                 <div class="col-sm-6">
                     <div class="form-group">
                         <label for="prepare">Prepare:</label>
-                        <textarea class="form-control" rows="2" id="prepare"></textarea>
+                        <textarea class="form-control" rows="2" id="prepare" name="prepare"></textarea>
                     </div>
                 </div>
 
@@ -92,7 +92,7 @@
 
                     <div class="form-group">
                         <label for="description">Description:</label>
-                        <textarea class="form-control" rows="2" id="description"></textarea>
+                        <textarea class="form-control" rows="2" id="description" name="description"></textarea>
                     </div>
                 </div>
                 <div class="row">
