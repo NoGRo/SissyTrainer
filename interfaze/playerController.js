@@ -13,6 +13,15 @@ router.get('/getClips', function (req, res, next) {
         res.send(docs)
     })
 })
+router.get('/getSeason', function (req, res, next) {
+
+
+    
+    clips.getByPosition(req.query.position, (docs) => {
+        res.send(docs)
+    })
+})
+
 router.post('/Save', function (req, res, next) {
     clips.addMetadata(req.body,()=>{
         clips.getPendingOne((doc) => {
