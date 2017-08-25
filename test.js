@@ -2,8 +2,9 @@
 var ffmpeg = require('fluent-ffmpeg')
 var clips = require("./lib/clips")
 
-clips.parseFolder("C:/Temp/ParseGif")
-clips.convertPending();
+clips.parseFolder("e:/porno/clips" )
+clips.convertPending()
+
 
 /*
 var proc = new ffmpeg({ source: 'c:/temp/perrito.gif' })

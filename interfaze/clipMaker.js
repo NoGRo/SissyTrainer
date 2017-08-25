@@ -21,16 +21,16 @@ function initForm() {
         var optType = $('[name=action]:checked').val();
         var sw = {
             Fucking: function () {
-                resetForm();
+                
                 $('input[name=action][value=Fucking]').prop('checked', true)
             },
             Insert: function () {
-                resetForm();
+                
                 $('input[name=action][value=Insert]').prop('checked', true)
                 $('#panelStrokes').hide()
             },
             Pullout: function () {
-                resetForm();
+                
                 $('input[name=action][value=Pullout]').prop('checked', true)
                 $('#panelStrokes').hide()
                 //$('#panelFucking').hide()
@@ -59,19 +59,39 @@ function initForm() {
 
         })
     $('#next').click(function () {
+        resetForm();
         save();
-        next();
     });
+    $('#skip').click(function () {
+        resetForm();
+        skip();
+    });
+
+    save()
 }
 function save() {
-    var formData = $('form').serialize()
-}
-function next() {
     var video = $('video')[0];
-    resetForm();
-    var nxt = { _id: 135135, videoPath: 'C:/Temp/ParseGif/gif-gatos-15.mp4' }
-    $('#_id').val(nxt._id)
-    video.src = nxt.videoPath;
+    $.ajax({
+        url:'clipMaker/Save',
+        type:'post',
+        data: $('form').serialize(),
+        success: function (clip){
+            $('#_id').val(clip._id)
+            video.src = "clips/" + clip._id + '.mp4';
+        }
+    })
+    
+}
+function skip() {
+     var video = $('video')[0];
+    $.ajax({
+        url:'clipMaker/skip',
+        success: function (clip){
+            $('#_id').val(clip._id)
+            video.src = "clips/" + clip._id + '.mp4';
+        }
+    })
+    
 }
 $(document).ready(function () {
     initForm();

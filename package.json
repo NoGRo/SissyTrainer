@@ -13,7 +13,11 @@
     "resizable": true
   },
   "dependencies": {
+    "body-parser": "^1.17.2",
     "bootstrap": "^3.3.7",
+    "express": "^4.15.4",
+    "fluent-ffmpeg": "^2.1.2",
+    "jade": "^1.11.0",
     "jquery": "^3.2.1",
     "keypress": "^0.2.1",
     "lodash": "^3.10.0",
