@@ -18,7 +18,7 @@ router.get('/skip', function (req, res, next) {
     })
 })
 router.post('/save', function (req, res, next) {
-    clips.addMetadata(req.body,()=>{
+    clips.addMetadata(req.query,()=>{
         clips.getPendingOne((doc) => {
             res.send(doc)
         })
