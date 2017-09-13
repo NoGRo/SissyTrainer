@@ -1,6 +1,7 @@
 var express = require('express');
 var path = require('path');
-var clips = require('../lib/clips.js');
+//var clips = require('../lib/clips.js');
+var sg = require('../lib/seasonGenerator.js');
 var router = express.Router();
 
 /* GET users listing. */
@@ -9,25 +10,8 @@ router.get('/', function (req, res, next) {
 
 })
 router.get('/getClips', function (req, res, next) {
-    clips.getByPosition(req.query.position, (docs) => {
-        res.send(docs)
-    })
-})
-router.get('/getSeason', function (req, res, next) {
-
-
-    
-    clips.getByPosition(req.query.position, (docs) => {
-        res.send(docs)
-    })
-})
-
-router.post('/Save', function (req, res, next) {
-    clips.addMetadata(req.body,()=>{
-        clips.getPendingOne((doc) => {
-            res.send(doc)
-        })
-
+    sg.getSeason((clips) => {
+        res.json(clips)
     })
 })
 module.exports = router;

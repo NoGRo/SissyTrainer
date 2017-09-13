@@ -1,38 +1,36 @@
 $(document).ready(function () {
-    var clips = []
+
     $.ajax({
         url: "player/getClips",
         data: { position: 'onFour' },
-        success: function (cls) {
-            clips = cls;
-            insert(1);
+        success: function (clips) {
+            repro(clips);
         }
     });
 
     var tRepro = 0;
-
-    function insert(stage) {
-
-        var insertClips = []
-        if (stage == 1)
-            insertClips = clips.filter((c) => { return (c.action == "Insert" && c.deep == "Tip" && c.deep == "Medium") })
-
-        
-        if (insertClips.length == 0) {
-            fucking(stage)
+    index = 0;
+    function repro(clips) {
+        if (!clips.length) {
+            stop();
             return
         }
+        clip = clips[0];
+        clips.shift();
 
-        index = randomInt(0, insertClips.length - 1)
-        $('video')[0].src = "clips/" + insertClips[index]._id + ".mp4"
-        tRepro = setTimeout(function () { fucking(stage) }, randomInt(10, 15) * 1000)
+        $('video')[0].src = "clips/" + clip._id + ".mp4"
+
+        if (clip.action.match(/Insert|Pullout/))
+            tRepro = setTimeout(() => { repro(clips) }, clip.duration * 2 * 1000)
+        else
+            tRepro = setTimeout(() => { repro(clips) }, 3000)//randomInt(10, 20) * 1000)
     }
     var lastClip = -1
     var stageClips = []
     function fucking(stage) {
 
         if (stage == 1 && !stageClips.length)
-            stageClips = clips.filter((c) => { return (!c.hard && !c.prostate && c.deep != "Really Deep" && !c.deep != "Deep") })
+            stageClips = clips.filter((c) => { return (!c.hard && !c.prostate && c.deep != "ReallyDeep" && !c.deep != "Deep") })
         index = randomInt(0, stageClips.length - 1)
         while (index == lastClip)
             index = randomInt(0, stageClips.length)
@@ -40,7 +38,7 @@ $(document).ready(function () {
         $('video')[0].src = "clips/" + stageClips[index]._id + ".mp4"
 
 
-        tRepro = setTimeout(function () { execute(stage) }, randomInt(10, 25) * 1000)
+        tRepro = setTimeout(function () { execute(stage) }, randomInt(10, 20) * 1000)
     }
     function randomInt(min, max) {
         return Math.floor(Math.random() * (max - min + 1) + min);

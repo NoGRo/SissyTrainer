@@ -1,7 +1,7 @@
-var express = require('express');
-var path = require('path');
-var clips = require('../lib/clips.js');
-var router = express.Router();
+var express = require('express')
+var path = require('path')
+var clips = require('../lib/clips.js')
+var router = express.Router()
 
 /* GET users listing. */
 
@@ -12,13 +12,21 @@ router.get('/', function (req, res, next) {
 router.get('/skip', function (req, res, next) {
 
     clips.getSkip((err) => {
-         clips.getPendingOne((doc) => {
+        clips.getPendingOne((doc) => {
+            res.send(doc)
+        })
+    })
+})
+router.get('/checkAll', function (req, res, next) {
+
+    clips.checkAll((err) => {
+        clips.getPendingOne((doc) => {
             res.send(doc)
         })
     })
 })
 router.post('/save', function (req, res, next) {
-    clips.addMetadata(req.query,()=>{
+    clips.addMetadata(req.body, () => {
         clips.getPendingOne((doc) => {
             res.send(doc)
         })

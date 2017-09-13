@@ -19,7 +19,7 @@ function showAll() {
 
 
 function loadForm(clip) {
-    $('_id').val(clip._id)
+    $('#_id').val(clip._id)
     $('video')[0].src = "clips/" + clip._id + '.mp4';
 
     if (!clip.action && !clip.position && !clip.deep && !clip.strokes) //defaults
@@ -30,7 +30,7 @@ function loadForm(clip) {
         return
     }
 
-    $('input[name=action][value=' + clip.action + ']').prop("checked", true)
+    $('input[type=radio][name=action][value=' + clip.action + ']').prop("checked", true)
     $('#position option[value=' + clip.position + ']').prop("selected", true)
     $('#deep option[value=' + clip.deep + ']').prop("selected", true)
     $('#strokes option[value=' + clip.strokes + ']').prop("selected", true)
@@ -42,18 +42,21 @@ function loadForm(clip) {
 
 }
 function serializeForm() {
-    return {
-        _id: $('_id').val(),
-        action: $('input[name=action]:checked').val(),
-        position: $('#position').val(),
+    var clip = {
+        _id: $('#_id').val(),
+        action: $('input[type=radio][name=action]:checked').val(),
+        position: $('#position').val()[0],
+        deep: $('#deep').val()[0],
+        strokes: $('#strokes').val()[0],
+        
         hard: $('#hard').prop('checked'),
         prostate: $('#prostate').prop('checked'),
-        deep: $('#deep').val(),
-        strokes: $('#strokes').val(),
-        prepare: $('#prepare').val(''),
-        description: $('#description').val(''),
-        duration: $('video').duration
+
+        prepare: $('#prepare').val(),
+        description: $('#description').val(),
+        duration: $('video')[0].duration
     }
+    return clip
 }
 
 
@@ -93,7 +96,7 @@ function initForm() {
     var video = $('video')[0];
     $('#strokes').hover(
         function () {
-            video.playbackRate = 0.5;
+            video.playbackRate = 0.3;
             video.currentTime = 0;
 
         },
@@ -102,15 +105,13 @@ function initForm() {
 
         })
     $('#next').click(function () {
-        resetForm();
         save();
+        resetForm();
     });
     $('#skip').click(function () {
         resetForm();
         skip();
     });
-
-    save()
 }
 function save() {
     $.ajax({
@@ -134,6 +135,7 @@ function skip() {
 
 }
 $(document).ready(function () {
-    initForm();
-    resetForm();
+    initForm()
+    resetForm()
+    save()
 });
