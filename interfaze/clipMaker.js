@@ -1,3 +1,9 @@
+var Beep = new Audio('playerBeep.mp3'),
+video
+
+
+
+
 function resetForm() {
     showAll()
     $('input[name=action]').prop('checked', false)
@@ -20,7 +26,7 @@ function showAll() {
 
 function loadForm(clip) {
     $('#_id').val(clip._id)
-    $('video')[0].src = "clips/" + clip._id + '.mp4';
+    video.src = "clips/" + clip._id + '.mp4';
 
     if (!clip.action && !clip.position && !clip.deep && !clip.strokes) //defaults
     {
@@ -44,17 +50,19 @@ function loadForm(clip) {
 function serializeForm() {
     var clip = {
         _id: $('#_id').val(),
+        state: "ready",
+
         action: $('input[type=radio][name=action]:checked').val(),
         position: $('#position').val()[0],
         deep: $('#deep').val()[0],
         strokes: $('#strokes').val()[0],
-        
+
         hard: $('#hard').prop('checked'),
         prostate: $('#prostate').prop('checked'),
 
         prepare: $('#prepare').val(),
         description: $('#description').val(),
-        duration: $('video')[0].duration
+        duration: video.duration
     }
     return clip
 }
@@ -93,15 +101,48 @@ function initForm() {
         console.log(this.value)
     })
 
-    var video = $('video')[0];
+    var tRepclip = 0,
+        tBeep = 0,
+        tBeep2 = 0
     $('#strokes').hover(
         function () {
             video.playbackRate = 0.3;
             video.currentTime = 0;
+            
+            if (!tRepclip) {
+                let strokeTime = ((video.duration * (1/0.3) * 1000 + 50 ) / $('#strokes').val()[0]) 
+                
+                clearInterval(tBeep)
+                clearInterval(tBeep2)
+                tBeep2 = setTimeout(() => {
+                    Beep.play()
+                    tBeep = setInterval(() => { Beep.play() }, strokeTime)
+                }, strokeTime / 2)
+
+                tRepclip = setInterval(function () {
+                    $('video').hide()
+                    video.pause()
+                    setTimeout(function () {
+                        $('video').show()
+                        video.play()
+                    }, 50);
+
+
+
+                }, (video.duration * (1/0.3) * 1000) + 50);
+            }
+            
+            
+
 
         },
         function () {
-            video.playbackRate = 1;
+            clearInterval(tRepclip)
+            clearInterval(tBeep)
+            clearInterval(tBeep2)
+            tRepclip = 0
+            video.play()
+            video.playbackRate = 1
 
         })
     $('#next').click(function () {
@@ -125,7 +166,6 @@ function save() {
 
 }
 function skip() {
-    var video = $('video')[0];
     $.ajax({
         url: 'clipMaker/skip',
         success: function (clip) {
@@ -135,6 +175,7 @@ function skip() {
 
 }
 $(document).ready(function () {
+    video = $('video')[0]
     initForm()
     resetForm()
     save()

@@ -1,8 +1,25 @@
 
 var ffmpeg = require('fluent-ffmpeg')
 var clips = require("./lib/clips")
+/*
+clips.parseAll({ state: "ready", action: 'Fucking' }, (clip) => {
+  if (+clip.strokes) {
+    var speed = clip.duration / clip.strokes
+    clip.bpm = parseInt(60 / speed)
+    if (speed > 0.7)
+      clip.speed = 'Slow'
+    else if (speed > 0.4)
+      clip.speed = 'Lassy'
+    else
+      clip.speed = 'Fast'
+  }
+  else
+    clip.speed = 'Fast'
 
-clips.parseFolder("e:/porno/clips" )
+  clip.save()
+})
+*/
+clips.parseFolder("e:/porno/clips")
 clips.convertPending()
 
 
