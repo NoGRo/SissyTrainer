@@ -23,12 +23,14 @@ $(document).ready(function () {
         sittingOnTop: ["pega el dildo al piso, de rodillas y sentate arriba", "pega el dildo al piso, y sentate arriba"]
     }
 
-    var tRepro = 0
-    var tBeep = 0
-    var Beep = new Audio('playerBeep.mp3')
+    var tRepro = 0,
+        tBeep = 0,
+        tBeep2 = 0,
+        Beep = new Audio('playerBeep.mp3')
 
     function pause() {
         clearInterval(tBeep)
+        clearInterval(tBeep2)
         clearInterval(tRepro)
         $('video')[0].pause()
         //$('#message').hide();
@@ -66,10 +68,42 @@ $(document).ready(function () {
             playNext()
         }
     })
+
+    function playBeeps(params) {
+        clearInterval(tBeep)
+        clearInterval(tBeep2)
+        tBeep = setInterval(reproBeeps, clips.duration * 1000)
+        reproBeeps()
+        function reproBeeps() {
+            if (!clip.customStrokes || !clip.customStrokes.length) {
+                let strokeTime = (clip.duration / clip.strokes) * 1000;
+                clearInterval(tBeep)
+                clearInterval(tBeep2)
+                tBeep2 = setTimeout(() => {
+                    Beep.play()
+                    tBeep = setInterval(() => { Beep.play() }, strokeTime)
+                }, strokeTime / 2)
+            } else {
+                var index = 0;
+                reproBeep();
+                function reproBeep() {
+                    if (index > clip.customStrokes.length) return;
+                    clearInterval(tBeep2);
+                    tBeep2 = setTimeout(function () {
+                        reproBeep();
+                        Beep.play();
+                    }, clip.customStrokes[index] - (index >= 1 ? clip.customStrokes[index - 1] : 0));
+                    index++
+                }
+            }
+
+        }
+    }
+
     function repro() {
         if (!clips.length) {
             stop();
-            $('video')[0].pause()   
+            $('video')[0].pause()
             return
         }
         clip = clips[0];
@@ -80,15 +114,9 @@ $(document).ready(function () {
         var duration = randomInt(12, 25) * 1000
         if (clip.action.match(/Insert|Pullout/))
             duration = clip.duration > 10 ? clip.duration * 1000 : 10000
+        else
+            playBeeps()
 
-        clearInterval(tBeep)
-        if (clip.action == "Fucking") {
-            let strokeTime = (clip.duration / clip.strokes) * 1000
-            setTimeout(() => {
-                Beep.play()
-                tBeep = setInterval(() => { Beep.play() }, strokeTime)
-            }, strokeTime / 2)
-        }
 
         tRepro = setTimeout(() => {
             playNext()
@@ -120,18 +148,18 @@ $(document).ready(function () {
             var msjs = preparePosition[nextClip.position]
             message(msjs[randomInt(0, msjs.length)])
         }
-
-        if (nextClip.prostate && !clip.prostate)
-            message("Prepare to hit your prostate")
-        if (nextClip.hard && !clip.hard)
-            message((["let's ready for go crazy", "go hard soon"])[randomInt(0, 1)])
-        if (nextClip.deep == "Deep" && clip.deep != "Deep" && clip.deep != "ReallyDeep")
-            message((["next Deep", "Deep soon"])[randomInt(0, 1)])
-        if (nextClip.deep == "ReallyDeep" && clip.deep == "Deep")
-            message((["Even MORE Deep", "Deeper Soon"])[randomInt(0, 1)])
-        if (nextClip.deep == "ReallyDeep" && clip.deep != "Deep")
-            message((["prepare to go Relly Deep", "Relly Deep soon"])[randomInt(0, 1)])
-
+        if (!clip.action.match(/Insert|Pullout/)) {
+            if (nextClip.prostate && !clip.prostate)
+                message("Prepare to hit your prostate")
+            if (nextClip.hard && !clip.hard)
+                message((["let's ready for go crazy", "go hard soon"])[randomInt(0, 1)])
+            if (nextClip.deep == "Deep" && clip.deep != "Deep" && clip.deep != "ReallyDeep")
+                message((["next Deep", "Deep soon"])[randomInt(0, 1)])
+            if (nextClip.deep == "ReallyDeep" && clip.deep == "Deep")
+                message((["Even MORE Deep", "Deeper Soon"])[randomInt(0, 1)])
+            if (nextClip.deep == "ReallyDeep" && clip.deep != "Deep")
+                message((["prepare to go Relly Deep", "Relly Deep soon"])[randomInt(0, 1)])
+        }
         showMessage(messageText, duration - messageDuration);
     }
 
