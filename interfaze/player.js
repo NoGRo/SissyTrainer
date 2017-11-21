@@ -112,16 +112,22 @@ $(document).ready(function () {
 
         $('video')[0].src = "clips/" + clip._id + ".mp4"
         var duration = randomInt(12, 25) * 1000
+
         if (clip.action.match(/Insert|Pullout/))
             duration = clip.duration > 10 ? clip.duration * 1000 : 10000
-        else
+        else {
+            if (clip.duration > duration)
+                duration = clip.duration * 1000
             playBeeps()
+        }
 
 
         tRepro = setTimeout(() => {
             playNext()
         }, duration)//randomInt(10, 20) * 1000)
 
+
+        clearMessages()
 
         if (clip.description)
             message(clip.description)
@@ -133,22 +139,22 @@ $(document).ready(function () {
             }
         }
         else
-            message((clip.speed ? clip.speed + ' - ' : "")
-                + clip.deep
-                + (clip.prostate ? " - Prostate" : ""))
+            message(clip.deep + (clip.prostate ? " - Prostate" : ""))
 
         showMessage();
 
         if (!nextClip)
             return
 
-        if (nextClip.prepare)
-            message(nextClip.prepare)
-        else if (nextClip.position != clip.position) {
-            var msjs = preparePosition[nextClip.position]
-            message(msjs[randomInt(0, msjs.length)])
-        }
-        if (!clip.action.match(/Insert|Pullout/)) {
+        if (!nextClip.action.match(/Insert|Pullout/)) {
+            if (nextClip.prepare)
+                message(nextClip.prepare)
+            else if (nextClip.position != clip.position) {
+                var msjs = preparePosition[nextClip.position]
+                message(msjs[randomInt(0, msjs.length)])
+            }
+            //prepare
+
             if (nextClip.prostate && !clip.prostate)
                 message("Prepare to hit your prostate")
             if (nextClip.hard && !clip.hard)
@@ -159,14 +165,17 @@ $(document).ready(function () {
                 message((["Even MORE Deep", "Deeper Soon"])[randomInt(0, 1)])
             if (nextClip.deep == "ReallyDeep" && clip.deep != "Deep")
                 message((["prepare to go Relly Deep", "Relly Deep soon"])[randomInt(0, 1)])
+
+            showMessage(messageText, duration - messageDuration);
         }
-        showMessage(messageText, duration - messageDuration);
+
     }
 
 
 
 
     var messageText = ''
+    var messageTimers = []
     function message(text) {
         if (!text)
             return messageText
@@ -176,7 +185,7 @@ $(document).ready(function () {
             : messageText += text;
         return messageText;
     }
-    var messageDuration = 8000
+    var messageDuration = 10000
     function showMessage(text, inTime) {
         if (!text)
             text = messageText
@@ -184,13 +193,25 @@ $(document).ready(function () {
 
         messageText = ""
         inTime = inTime || 0;
-        setTimeout(function () {
-            $('#message').show();
-            $('#message').text(text)
-        }, inTime)
-        setTimeout(function () {
-            $('#message').hide();
-        }, inTime + messageDuration)
+        messageTimers.push(
+            setTimeout(function () {
+                $('#message').show();
+                $('#message').text(text)
+            }, inTime)
+        )
+        messageTimers.push(
+            setTimeout(function () {
+                $('#message').hide()
+            }, inTime + messageDuration)
+        )
+    }
+    function clearMessages() {
+        for (var index = 0; index < messageTimers.length; index++) {
+            clearInterval(messageTimers[index])
+        }
+        $('#message').text("")
+        $('#message').hide()
+        messageText = ""
     }
     function randomInt(min, max) {
         return Math.floor(Math.random() * (max - min + 1) + min);

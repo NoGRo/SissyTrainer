@@ -17,6 +17,14 @@ router.get('/skip', function (req, res, next) {
         })
     })
 })
+router.get('/parse', function (req, res, next) {
+    clips.parseFolder("e:/porno/clips")
+    res.send('Ok!')
+})
+router.get('/convert', function (req, res, next) {
+    clips.convertPending()
+    res.send('Ok!')
+})
 router.get('/checkAll', function (req, res, next) {
 
     clips.checkAll((err) => {
@@ -30,7 +38,6 @@ router.post('/save', function (req, res, next) {
         clips.getPendingOne((doc) => {
             res.send(doc)
         })
-
     })
 })
 
