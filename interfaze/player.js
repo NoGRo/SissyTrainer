@@ -23,7 +23,8 @@ $(document).ready(function () {
         sittingOnTop: ["pega el dildo al piso, de rodillas y sentate arriba", "pega el dildo al piso, y sentate arriba"]
     }
 
-    var tRepro = 0,
+    var current = 0,
+        tRepro = 0,
         tBeep = 0,
         tBeep2 = 0,
         Beep = new Audio('playerBeep.mp3')
@@ -38,9 +39,14 @@ $(document).ready(function () {
     function play() {
         repro()
     }
+    function playPrev() {
+        pause()
+        current--;
+        current--;
+        repro()
+    }
     function playNext() {
         pause()
-        clips.shift()
         repro()
     }
     var statepause = false;
@@ -54,15 +60,15 @@ $(document).ready(function () {
 
     }).on('contextmenu', function (e) {
         e.preventDefault()
-        clips[0].state = "check"
+        clips[current].state = "check"
         $.ajax({
-            url: 'clipMaker/Save',
+            url: 'clipMaker/Save', 
             type: 'post',
-            data: clips[0],
+            data: clips[current],
         });
     }).on('mousewheel', function (e) {
         if (e.originalEvent.wheelDelta / 120 > 0) {
-            //upp
+            playPrev()
         }
         else {
             playNext()
@@ -72,7 +78,7 @@ $(document).ready(function () {
     function playBeeps(params) {
         clearInterval(tBeep)
         clearInterval(tBeep2)
-        tBeep = setInterval(reproBeeps, clips.duration * 1000)
+        tBeep = setInterval(reproBeeps, clip.duration * 1000)
         reproBeeps()
         function reproBeeps() {
             if (!clip.customStrokes || !clip.customStrokes.length) {
@@ -101,15 +107,16 @@ $(document).ready(function () {
     }
 
     function repro() {
-        if (!clips.length) {
+        if (clips.length == current) {
             stop();
             $('video')[0].pause()
             return
         }
-        clip = clips[0];
+       
+        clip = clips[current]
 
-        var nextClip = clips[1]
-
+        var nextClip = clips[current + 1]
+        current++
         $('video')[0].src = "clips/" + clip._id + ".mp4"
         var duration = randomInt(12, 25) * 1000
 
