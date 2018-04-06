@@ -15,7 +15,7 @@ router.get('/skip', function (req, res, next) {
         clips.getPendingOne((doc) => {
             res.send(doc)
         })
-    })
+    }) 
 })
 router.get('/parse', function (req, res, next) {
     clips.parseFolder("e:/porno/clips")

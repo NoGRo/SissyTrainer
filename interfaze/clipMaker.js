@@ -5,7 +5,6 @@ $(document).ready(function () {
     video = $('video')[0]
     initForm()
     resetForm()
-    save()
 });
 
 
@@ -24,6 +23,7 @@ function resetForm() {
     $('#description').val('')
     customStrokes = [];
 }
+
 
 function showAll() {
     $('#panelStrokes').show()
@@ -50,10 +50,11 @@ function loadForm(clip) {
     $('#hard').prop('checked', clip.hard == "true")
     $('#prostate').prop('checked', clip.prostate == "true")
     customStrokes = clip.customStrokes || [];
-    $('#prepare').val(clip.prepare)
     $('#description').val(clip.description)
+    $('#prepare').val(clip.prepare)
+    
 
-}
+} 
 function serializeForm() {
     var clip = {
         _id: $('#_id').val(),
