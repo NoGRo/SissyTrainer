@@ -9,6 +9,19 @@ router.get('/', function (req, res, next) {
     res.sendfile(path.join(__dirname, 'clipMaker.html'))
 
 })
+router.get('/pending', function (req, res, next) {
+    clips.getPendingOne((doc) => {
+        res.send(doc)
+    })
+})
+
+router.get('/random', function (req, res, next) {
+    clips.getRandom((doc) => {
+        res.send(doc)
+    })
+
+})
+
 router.get('/skip', function (req, res, next) {
 
     clips.getSkip((err) => {
@@ -18,7 +31,7 @@ router.get('/skip', function (req, res, next) {
     }) 
 })
 router.get('/parse', function (req, res, next) {
-    clips.parseFolder("e:/porno/clips")
+    clips.parseFolder("e:/porno/clips",clips.convertPending)
     res.send('Ok!')
 })
 router.get('/convert', function (req, res, next) {

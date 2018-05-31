@@ -2,6 +2,7 @@
 <link href="ven/bootstrap.min.css" rel="stylesheet" type="text/css">
 
 <script src="ven/jquery.min.js"></script>
+<script src="ven/jquery.validate.min.js"></script>
 <script src="ven/bootstrap.min.js"></script>
 <script src="clipMaker.js"></script>
 
@@ -17,7 +18,9 @@
         <div class="row">
             <div class="col-sm-5">
                 <img src="" alt="">
-                <video src="c:\temp\perrito.mp4" autoplay loop style="width: -webkit-fill-available"></video>
+                <video autoplay loop style="width: -webkit-fill-available;
+                                            height: -webkit-fill-available;
+                                            display: -webkit-box"></video>
             </div>
             <div class="col-sm-6">
                 <div class="row">
@@ -37,7 +40,7 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="position">Position:</label>
-                            <select multiple class="form-control" id="position" name="position" style="height: 187px" >
+                            <select multiple class="form-control" id="position" name="position" style="height: 187px" required >
                                 <option value="onBack">Back</option>
                                 <option value="onSide">Side</option>
                                 <option value="onSideLiftLeg">Side Lift Leg</option>
@@ -101,7 +104,10 @@
                     <div class="col-sm-1">
                         <button type="button" id="skip" class="btn btn-danger">skip</button>
                     </div>
-                    <div class="col-sm-1 col-sm-offset-10">
+                    <div class="col-sm-1 col-sm-offset-1">
+                        <button type="button" id="random" class="btn btn-primary">random</button>
+                    </div>
+                    <div class="col-sm-1 col-sm-offset-9">
                         <button type="button" id="next" class="btn btn-success">Next</button>
                     </div>
                 </div>

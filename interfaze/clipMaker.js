@@ -5,6 +5,7 @@ $(document).ready(function () {
     video = $('video')[0]
     initForm()
     resetForm()
+    pending();
 });
 
 
@@ -111,32 +112,47 @@ function initForm() {
     var tRepclip = 0,
         tBeep = 0,
         tBeep2 = 0,
+        tFash = 0,
         lowRatio = 1,
-        flashDuration = 50,
+        flashDuration = 250,
         videoDurartion = 0;
+   
     function lowdownVideo() {
         lowRatio = 0.3;
         videoDurartion = (video.duration * (1 / lowRatio) * 1000 + flashDuration)
         if (!tRepclip) {
             video.currentTime = 0;
             video.playbackRate = lowRatio;
-            tRepclip = setInterval(function () {
+            video.loop = false;
+           
+            $('video').on('ended', ()=> {
                 $('video').hide()
-                video.pause()
-                setTimeout(function () {
+                tFash = setTimeout(function () {
                     $('video').show()
                     video.play()
                 }, flashDuration);
-            }, (video.duration * (1 / lowRatio) * 1000) + flashDuration);
+            })
+          /*  tRepclip = setInterval(function () {
+                $('video').hide()
+                video.pause()
+                tFash =setTimeout(function () {
+                    $('video').show()
+                    video.play()
+                }, flashDuration);
+            }, (video.duration * (1 / lowRatio) * 1000) + flashDuration);*/
         }
     }
     function resetVideo(params) {
         clearInterval(tRepclip);
         clearInterval(tBeep);
         clearInterval(tBeep2);
+        clearInterval(tFash);
         tRepclip = 0;
         videoDurartion = video.duration * 1000;
         lowRatio = 1;
+        $('video').unbind('ended')
+        $('video').show()
+        video.loop = true;
         video.currentTime = 0;
         video.playbackRate = 1;
         video.play();
@@ -148,8 +164,6 @@ function initForm() {
                 lowdownVideo();
                 playBeeps();
             }
-
-
         },
         function () { //leave
             resetVideo();
@@ -230,12 +244,25 @@ function initForm() {
     );
 
     $('#next').click(function () {
-        save();
-        resetForm();
+        if($('form').valid())
+        {
+            save();
+            resetForm();
+        }
+        
     });
     $('#skip').click(function () {
         resetForm();
         skip();
+    });
+    $('#random').click(function () {
+        resetForm();
+        $.ajax({
+            url: 'clipMaker/random',
+            success: function (clip) {
+                loadForm(clip)
+            }
+        })
     });
 }
 function save() {
@@ -248,6 +275,14 @@ function save() {
         }
     })
 
+}
+function pending(){
+    $.ajax({
+        url: 'clipMaker/pending',
+        success: function (clip) {
+            loadForm(clip)
+        }
+    })
 }
 function skip() {
     $.ajax({
