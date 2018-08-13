@@ -1,5 +1,5 @@
 {
-  "name": "SissyAnalTrainer",
+  "name": "sissytrainer",
   "main": "/interfaze/clipMaker.html",
   "version": "0.0.1",
   "private": true,
@@ -20,8 +20,9 @@
     "jade": "^1.11.0",
     "jquery": "^3.2.1",
     "keypress": "^0.2.1",
-    "lodash": "^3.10.0",
-    "nedb": "^1.8.0"
+    "lodash": "^4.17.5",
+    "nedb": "^1.8.0",
+    "npm": "^6.3.0"
   },
   "start": "nw"
 }
